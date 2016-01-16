@@ -13,17 +13,12 @@ public class Player_script : MonoBehaviour
     public int jumpCount = 2;
     public Vector2 normal;
     public bool sideTouch = false;
-    private Code_script codeScript;
-
+    //public bool unCode = false;
 
     // Use this for initialization
     void Start()
     {
         playerBody = GetComponent<Rigidbody2D>();
-        GameObject coder = GameObject.Find("Code");
-        codeScript = coder.GetComponent<Code_script>();
-        
-
     }
 	
 	// Update is called once per frame
@@ -37,7 +32,7 @@ public class Player_script : MonoBehaviour
         }
         
 
- 
+        //when jumpbutton/spacebar is pressed, player jumps and loses one jumpcount.
         if (Input.GetButtonDown("Jump") && jumpCount >= 1)
         {
             playerBody.velocity = new Vector2(move * maxSpeed, jumpSpeed);
@@ -45,13 +40,6 @@ public class Player_script : MonoBehaviour
             jumpCount -= 1;
         }
 
-        if (codeScript.unCode == true)
-        {
-            if(Input.GetKeyDown(KeyCode.F))
-            {
-                codeScript.WriteCode();
-            }
-        }
 	}
 
     void OnCollisionStay2D(Collision2D coll)
@@ -63,7 +51,16 @@ public class Player_script : MonoBehaviour
             if (normal.x > 0 || normal.x < 0)
                 sideTouch = true;
         }
+        //on collision with code, if f key is pressed, code becomes inactive
+        if (coll.gameObject.tag == "Code")
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                Debug.Log("test");
+                coll.gameObject.SetActive(false);
+            }
 
+        }
     }
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -88,8 +85,9 @@ public class Player_script : MonoBehaviour
             }
 
         }
+       
 
-    }
+}
 
     void OnCollisionExit2D(Collision2D coll)
     {
