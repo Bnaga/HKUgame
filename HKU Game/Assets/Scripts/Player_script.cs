@@ -14,11 +14,15 @@ public class Player_script : MonoBehaviour
     public Vector2 normal;
     public bool sideTouch = false;
     //public bool unCode = false;
-
+    public Rigidbody2D debugShot;
+    private float bulletSpeed = 800.0F;
+    private float cooldown = -3.0F;
+    private float bulletHealth = 1.0F;
     // Use this for initialization
     void Start()
     {
         playerBody = GetComponent<Rigidbody2D>();
+        cooldown = Time.time + 1;
     }
 	
 	// Update is called once per frame
@@ -42,6 +46,25 @@ public class Player_script : MonoBehaviour
         }
 
 	}
+
+    void Update ()
+    {
+        if (Time.time >= cooldown)
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                cooldown = cooldown +1;
+                Fire();
+            }
+        }
+    }
+
+    void Fire()
+    {
+        Rigidbody2D bugshot = Instantiate(debugShot, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity) as Rigidbody2D;
+        bugshot.AddForce(transform.right * bulletSpeed);
+        Destroy(bugshot.gameObject, bulletHealth);
+    }
 
     void OnCollisionStay2D(Collision2D coll)
     {
