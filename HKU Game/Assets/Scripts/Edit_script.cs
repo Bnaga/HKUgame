@@ -18,9 +18,9 @@ public class Edit_script : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D coll)
     {
+        //when collision with player bottom and jumcount equals 0, add 2 two player's jumpcount
         if (coll.gameObject.tag == "Player")
         {
-            GameObject coder = GameObject.Find("Code");
             if(editTxt == true && playScript.jumpCount == 0)
             {
                     playScript.normal = coll.contacts[0].normal;
@@ -30,6 +30,7 @@ public class Edit_script : MonoBehaviour {
                     }
 
             }
+            //when collision with player bottom and jumcount equals 1, add 1 two player's jumpcount
             else if (editTxt == true && playScript.jumpCount == 1)
             {
                 playScript.normal = coll.contacts[0].normal;
@@ -43,6 +44,7 @@ public class Edit_script : MonoBehaviour {
     }
     void OnCollisionExit2D(Collision2D coll)
     {
+        //when collision exit with player bottom, edit text is set to false and side touch in player script is set to false
         if (coll.gameObject.tag == "Player")
         {
             playScript.normal = coll.contacts[0].normal;

@@ -26,6 +26,7 @@ public class Player_script : MonoBehaviour
     {
         float move = Input.GetAxis("Horizontal");
 
+        //if player is not touching side of platform, player can move horizontally
         if (sideTouch == false)
         {
             playerBody.velocity = new Vector2(move * maxSpeed, playerBody.velocity.y);
@@ -56,9 +57,12 @@ public class Player_script : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
-                Debug.Log("test");
                 coll.gameObject.SetActive(false);
             }
+            //on collision with sides of platform, set sideTouch to true
+            normal = coll.contacts[0].normal;
+            if (normal.x > 0 || normal.x < 0)
+                sideTouch = true;
 
         }
     }
@@ -88,10 +92,10 @@ public class Player_script : MonoBehaviour
        
 
 }
-
+    //when collision is exited
     void OnCollisionExit2D(Collision2D coll)
     {
-        if (coll.gameObject.tag == "Platform")
+        if (coll.gameObject.tag == "Platform" || coll.gameObject.tag == "Code")
         {
             normal = coll.contacts[0].normal;
             if (normal.x > 0 || normal.x < 0)
