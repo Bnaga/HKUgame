@@ -18,6 +18,7 @@ public class Player_script : MonoBehaviour
     private float bulletSpeed = 800.0F;
     private float cooldown = -3.0F;
     private float bulletHealth = 1.0F;
+    private float xShot = 0.5F;
     // Use this for initialization
     void Start()
     {
@@ -36,6 +37,17 @@ public class Player_script : MonoBehaviour
             playerBody.velocity = new Vector2(move * maxSpeed, playerBody.velocity.y);
         }
         
+        if(playerBody.velocity.x < 0)
+        {
+            facingRight = false;
+            Debug.Log("face left");
+        }
+
+        else if(playerBody.velocity.x > 0)
+        {
+            facingRight = true;
+            Debug.Log("face right");
+        }
 
         //when jumpbutton/spacebar is pressed, player jumps and loses one jumpcount.
         if (Input.GetButtonDown("Jump") && jumpCount >= 1)
@@ -45,25 +57,32 @@ public class Player_script : MonoBehaviour
             jumpCount -= 1;
         }
 
-	}
-
-    void Update ()
-    {
         if (Time.time >= cooldown)
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                cooldown = cooldown +1;
+                cooldown = cooldown + 1;
                 Fire();
             }
         }
     }
 
+
     void Fire()
     {
-        Rigidbody2D bugshot = Instantiate(debugShot, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity) as Rigidbody2D;
-        bugshot.AddForce(transform.right * bulletSpeed);
-        Destroy(bugshot.gameObject, bulletHealth);
+        if(facingRight == true)
+        {
+            Rigidbody2D bugshot = Instantiate(debugShot, new Vector3(transform.position.x + xShot, transform.position.y, transform.position.z), Quaternion.identity) as Rigidbody2D;
+            bugshot.AddForce(transform.right * bulletSpeed);
+            Destroy(bugshot.gameObject, bulletHealth);
+        }
+
+        else if(facingRight == false)
+        {
+            Rigidbody2D bugshot = Instantiate(debugShot, new Vector3(transform.position.x - xShot, transform.position.y, transform.position.z), Quaternion.identity) as Rigidbody2D;
+            bugshot.AddForce(-transform.right * bulletSpeed);
+            Destroy(bugshot.gameObject, bulletHealth);
+        }
     }
 
     void OnCollisionStay2D(Collision2D coll)

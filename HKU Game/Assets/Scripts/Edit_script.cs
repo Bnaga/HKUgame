@@ -21,7 +21,7 @@ public class Edit_script : MonoBehaviour {
         //when collision with player bottom and jumcount equals 0, add 2 two player's jumpcount
         if (coll.gameObject.tag == "Player")
         {
-            if(editTxt == true && playScript.jumpCount == 0)
+            if( playScript.jumpCount == 0)
             {
                     playScript.normal = coll.contacts[0].normal;
                     if (playScript.normal.y < 0)
@@ -31,7 +31,7 @@ public class Edit_script : MonoBehaviour {
 
             }
             //when collision with player bottom and jumcount equals 1, add 1 two player's jumpcount
-            else if (editTxt == true && playScript.jumpCount == 1)
+            else if ( playScript.jumpCount == 1)
             {
                 playScript.normal = coll.contacts[0].normal;
                 if (playScript.normal.y < 0)
@@ -50,7 +50,7 @@ public class Edit_script : MonoBehaviour {
             playScript.normal = coll.contacts[0].normal;
             if (playScript.normal.x > 0 || playScript.normal.x < 0)
                 playScript.sideTouch = false;
-            editTxt = false;
+            //editTxt = false;
         }
     }
 
