@@ -6,7 +6,7 @@ public class Bug_script : MonoBehaviour {
     bool followPlayer = false;
     private float moveSpeed = 10.0F;
     private float maxDistance = 10.0F;
-    private float minDistance = 5.0F;
+    //private float minDistance = 5.0F;
     //GameObject player;
     private Rigidbody2D bug;
     public Transform target;
@@ -60,7 +60,7 @@ public class Bug_script : MonoBehaviour {
     {
         if(coll.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene(1) ;
+            SceneManager.LoadScene(0) ;
 
         }
         if(coll.gameObject.tag == "Shot")
