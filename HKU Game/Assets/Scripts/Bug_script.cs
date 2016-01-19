@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Bug_script : MonoBehaviour {
     bool followPlayer = false;
@@ -59,7 +60,8 @@ public class Bug_script : MonoBehaviour {
     {
         if(coll.gameObject.tag == "Player")
         {
-            
+            SceneManager.LoadScene(1) ;
+
         }
         if(coll.gameObject.tag == "Shot")
         {
