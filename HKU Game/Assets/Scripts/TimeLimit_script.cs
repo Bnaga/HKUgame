@@ -4,20 +4,28 @@ using UnityEngine.SceneManagement;
 
 public class TimeLimit_script : MonoBehaviour {
 
-    public float startTime;
+    void Awake()
+    {
+        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(GameObject.Find("CountBar"));
+    }
+    static public float startTime;
     private float timeRemaining;
     private float percent;
     public bool clockIsPaused;
     private ProgressBar.ProgressBarBehaviour barbar;
+    public bool retry = false;
+
 
 	// Use this for initialization
 	void Start ()
     {
         //startTime = 600.0F;
         startTime = 40.0F;
-        timeRemaining = startTime-Time.realtimeSinceStartup;
+        timeRemaining = startTime;
         GameObject bar = GameObject.FindGameObjectWithTag("Bar");
-        barbar = bar.GetComponent <ProgressBar.ProgressBarBehaviour> ();        
+        barbar = bar.GetComponent<ProgressBar.ProgressBarBehaviour>();
+        
     }
 	
 	// Update is called once per frame
@@ -26,6 +34,12 @@ public class TimeLimit_script : MonoBehaviour {
         if(clockIsPaused == false)
         {
             CountDown();
+        }
+
+        if(SceneManager.GetActiveScene().buildIndex== 0)
+        {
+            Destroy(this);
+            Destroy(GameObject.Find("CountBar"));
         }
 
 	}
