@@ -4,9 +4,9 @@ using System.Collections;
 public class Player_script : MonoBehaviour 
 {
 
-    public float maxSpeed = 10.0F;
-    public float jumpSpeed = 15.0F;
-    //public float gravity = 0.01F;
+    public float maxSpeed = 10.0f;
+    public float jumpSpeed = 15.0f;
+    //public float gravity = 0.01f;
     bool facingRight = true;
     private Rigidbody2D playerBody;
     //bool grounded =false;
@@ -15,10 +15,18 @@ public class Player_script : MonoBehaviour
     public bool sideTouch = false;
     //public bool unCode = false;
     public Rigidbody2D debugShot;
-    private float bulletSpeed = 800.0F;
-    private float cooldown = -3.0F;
-    private float bulletHealth = 1.0F;
-    private float xShot = 0.5F;
+    private float bulletSpeed = 800.0f;
+    private float cooldown = -3.0f;
+    private float bulletHealth = 1.0f;
+    private float xShot = 0.5f;
+    private AudioSource audiosrc;
+    public AudioClip shotClip;
+
+    void Awake()
+    {
+        audiosrc = GetComponent<AudioSource>();
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -74,6 +82,7 @@ public class Player_script : MonoBehaviour
         {
             Rigidbody2D bugshot = Instantiate(debugShot, new Vector3(transform.position.x + xShot, transform.position.y, transform.position.z), Quaternion.identity) as Rigidbody2D;
             bugshot.AddForce(transform.right * bulletSpeed);
+            audiosrc.PlayOneShot(shotClip, 1.0f);
             Destroy(bugshot.gameObject, bulletHealth);
         }
 
@@ -81,6 +90,7 @@ public class Player_script : MonoBehaviour
         {
             Rigidbody2D bugshot = Instantiate(debugShot, new Vector3(transform.position.x - xShot, transform.position.y, transform.position.z), Quaternion.identity) as Rigidbody2D;
             bugshot.AddForce(-transform.right * bulletSpeed);
+            audiosrc.PlayOneShot(shotClip, 1.0f);
             Destroy(bugshot.gameObject, bulletHealth);
         }
     }
