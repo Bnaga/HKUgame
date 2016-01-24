@@ -19,12 +19,17 @@ public class Player_script : MonoBehaviour
     private float cooldown = -3.0f;
     private float bulletHealth = 1.0f;
     private float xShot = 0.5f;
-    private AudioSource audiosrc;
+    private AudioSource shotsrc;
     public AudioClip shotClip;
+    public AudioClip jumpClip;
+    public AudioClip codeClip;
+    public AudioClip editClip;
+    public GameController_script controllerScript;
 
     void Awake()
     {
-        audiosrc = GetComponent<AudioSource>();
+         shotsrc = GetComponent<AudioSource>();
+
     }
 
     // Use this for initialization
@@ -32,6 +37,8 @@ public class Player_script : MonoBehaviour
     {
         playerBody = GetComponent<Rigidbody2D>();
         cooldown = Time.time + 1;
+        GameObject controller = GameObject.Find("GameController");
+        controllerScript = controller.GetComponent<GameController_script>();
     }
 	
 	// Update is called once per frame
@@ -61,7 +68,7 @@ public class Player_script : MonoBehaviour
         if (Input.GetButtonDown("Jump") && jumpCount >= 1)
         {
             playerBody.velocity = new Vector2(move * maxSpeed, jumpSpeed);
-
+            shotsrc.PlayOneShot(jumpClip, 0.6f);
             jumpCount -= 1;
         }
 
@@ -82,7 +89,7 @@ public class Player_script : MonoBehaviour
         {
             Rigidbody2D bugshot = Instantiate(debugShot, new Vector3(transform.position.x + xShot, transform.position.y, transform.position.z), Quaternion.identity) as Rigidbody2D;
             bugshot.AddForce(transform.right * bulletSpeed);
-            audiosrc.PlayOneShot(shotClip, 1.0f);
+            shotsrc.PlayOneShot(shotClip, 1.0f);
             Destroy(bugshot.gameObject, bulletHealth);
         }
 
@@ -90,7 +97,7 @@ public class Player_script : MonoBehaviour
         {
             Rigidbody2D bugshot = Instantiate(debugShot, new Vector3(transform.position.x - xShot, transform.position.y, transform.position.z), Quaternion.identity) as Rigidbody2D;
             bugshot.AddForce(-transform.right * bulletSpeed);
-            audiosrc.PlayOneShot(shotClip, 1.0f);
+            shotsrc.PlayOneShot(shotClip, 1.0f);
             Destroy(bugshot.gameObject, bulletHealth);
         }
     }
@@ -109,6 +116,8 @@ public class Player_script : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
+                shotsrc.PlayOneShot(editClip, 1.0f);
+                controllerScript.AddScore(100);
                 coll.gameObject.SetActive(false);
             }
             //on collision with sides of platform, set sideTouch to true
@@ -141,9 +150,14 @@ public class Player_script : MonoBehaviour
             }
 
         }
-       
 
-}
+        if (coll.gameObject.tag == "Code")
+        {
+            shotsrc.PlayOneShot(codeClip, 0.5f);
+        }
+
+
+        }
     //when collision is exited
     void OnCollisionExit2D(Collision2D coll)
     {

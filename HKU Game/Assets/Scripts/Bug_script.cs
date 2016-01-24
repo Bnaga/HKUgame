@@ -10,7 +10,7 @@ public class Bug_script : MonoBehaviour {
     //GameObject player;
     private Rigidbody2D bug;
     public Transform target;
-    // Use this for initialization
+    public GameController_script controllerScript;
 
     void OnTriggerEnter2D(Collider2D coll)
     {
@@ -31,6 +31,9 @@ public class Bug_script : MonoBehaviour {
     void Start ()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        GameObject controller = GameObject.Find("GameController");
+        controllerScript = controller.GetComponent<GameController_script>();
+        controllerScript.AddScore(-160);
 	
 	}
 	
@@ -60,6 +63,7 @@ public class Bug_script : MonoBehaviour {
     {
         if(coll.gameObject.tag == "Player" && SceneManager.GetActiveScene().buildIndex >=4)
         {
+
             SceneManager.LoadScene(0) ;
 
         }
@@ -71,6 +75,7 @@ public class Bug_script : MonoBehaviour {
         {
             Destroy(coll.gameObject);
             Destroy(gameObject);
+            controllerScript.AddScore(160);
         }
     }
 
