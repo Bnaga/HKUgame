@@ -10,12 +10,12 @@ public class deadFall : MonoBehaviour
         if (coll.gameObject.tag == "Player" && SceneManager.GetActiveScene().buildIndex >= 4)
         {
 
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
 
         }
         else if (coll.gameObject.tag == "Player" && SceneManager.GetActiveScene().buildIndex == 3)
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
         }
     }
 }

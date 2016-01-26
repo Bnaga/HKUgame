@@ -16,7 +16,7 @@ public class GameOver_script : MonoBehaviour {
         if (GUI.Button(new Rect(Screen.width / 2 -150/2, Screen.height / 2 + 50, 150, 25), "Retry"))
         {
             Destroy(GameObject.Find("GameController"));
-            SceneManager.LoadScene(4);
+            SceneManager.LoadScene(18);
         }
         if (GUI.Button(new Rect(Screen.width / 2 -150/2, Screen.height / 2 + 75, 150, 25), "Exit"))
         {

@@ -38,6 +38,6 @@ public class PauseMenu_script : MonoBehaviour {
 
     public void MainMenu()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(0);
     }
 }

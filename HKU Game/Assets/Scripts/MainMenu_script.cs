@@ -7,7 +7,7 @@ public class MainMenu_script : MonoBehaviour {
 
 	public void StartGame()
     {
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(8);
     }
 
     public void Tutorial()

@@ -84,15 +84,15 @@ public class Bug_script : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if(coll.gameObject.tag == "Player" && SceneManager.GetActiveScene().buildIndex >=4)
+        if(coll.gameObject.tag == "Player" && SceneManager.GetActiveScene().buildIndex >=8)
         {
 
-            SceneManager.LoadScene(0) ;
+            SceneManager.LoadScene(1) ;
 
         }
-        else if(coll.gameObject.tag == "Player" && SceneManager.GetActiveScene().buildIndex == 3)
+        else if(coll.gameObject.tag == "Player" && SceneManager.GetActiveScene().buildIndex < 8)
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
         }
         if(coll.gameObject.tag == "Shot")
         {

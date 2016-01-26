@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameController_script : MonoBehaviour {
 
     public Text scoreText;
-    private int score;
+    public int score;
     public int highscore;
     private GameObject[] bugs;
 
