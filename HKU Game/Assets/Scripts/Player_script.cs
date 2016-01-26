@@ -5,7 +5,7 @@ public class Player_script : MonoBehaviour
 {
 
     public float maxSpeed = 10.0f;
-    public float jumpSpeed = 15.0f;
+    public float jumpSpeed = 20.0f;
     //public float gravity = 0.01f;
     bool facingRight = true;
     private Rigidbody2D playerBody;
@@ -18,7 +18,7 @@ public class Player_script : MonoBehaviour
     private float bulletSpeed = 800.0f;
     private float cooldown = -3.0f;
     private float bulletHealth = 1.0f;
-    private float xShot = 0.5f;
+    private float xShot = 1.5f;
     private AudioSource shotsrc;
     public AudioClip shotClip;
     public AudioClip jumpClip;
@@ -52,17 +52,17 @@ public class Player_script : MonoBehaviour
             playerBody.velocity = new Vector2(move * maxSpeed, playerBody.velocity.y);
         }
         
-        if(playerBody.velocity.x < 0)
+       /* if(playerBody.velocity.x < 0)
         {
             facingRight = false;
             Debug.Log("face left");
-        }
+        } 
 
         else if(playerBody.velocity.x > 0)
         {
             facingRight = true;
             Debug.Log("face right");
-        }
+        } */
 
         //when jumpbutton/spacebar is pressed, player jumps and loses one jumpcount.
         if (Input.GetButtonDown("Jump") && jumpCount >= 1)
@@ -80,8 +80,28 @@ public class Player_script : MonoBehaviour
                 Fire();
             }
         }
+
+        if(facingRight && playerBody.velocity.x < 0)
+        {
+            Flip();
+        }
+
+        if(!facingRight && playerBody.velocity.x > 0)
+        {
+            Flip();
+        }
     }
 
+    void Flip()
+    {
+        // Switch the way the player is labelled as facing
+        facingRight = !facingRight;
+
+        // Multiply the player's x local scale by -1
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
+    }
 
     void Fire()
     {

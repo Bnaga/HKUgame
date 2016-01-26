@@ -11,6 +11,9 @@ public class Bug_script : MonoBehaviour {
     private Rigidbody2D bug;
     public Transform target;
     public GameController_script controllerScript;
+    private bool facingRight = true;
+    private float playerX;
+    private float bugX;
 
     void OnTriggerEnter2D(Collider2D coll)
     {
@@ -33,9 +36,8 @@ public class Bug_script : MonoBehaviour {
         target = GameObject.FindGameObjectWithTag("Player").transform;
         GameObject controller = GameObject.Find("GameController");
         controllerScript = controller.GetComponent<GameController_script>();
-        controllerScript.AddScore(-160);
-	
-	}
+
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate ()
@@ -51,12 +53,33 @@ public class Bug_script : MonoBehaviour {
             else {
                 transform.position = target.position;
             }
+            playerX = target.position.x;
+            bugX = transform.position.x;
+
         }
         else if(followPlayer == false)
         {
             transform.position = transform.position;
         }
+        if(!facingRight && playerX > bugX)
+        {
+            Flip();
+        }
+        if(facingRight && playerX < bugX)
+        {
+            Flip();
+        }
+    }
 
+    void Flip()
+    {
+        // Switch the way the player is labelled as facing
+        facingRight = !facingRight;
+
+        // Multiply the player's x local scale by -1
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -75,7 +98,7 @@ public class Bug_script : MonoBehaviour {
         {
             Destroy(coll.gameObject);
             Destroy(gameObject);
-            controllerScript.AddScore(160);
+            controllerScript.AddScore(150);
         }
     }
 

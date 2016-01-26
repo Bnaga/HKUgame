@@ -20,8 +20,8 @@ public class TimeLimit_script : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        //startTime = 600.0F;
-        startTime = 40.0F;
+        startTime = 600.0F;
+        //startTime = 40.0F;
         timeRemaining = startTime;
         GameObject bar = GameObject.FindGameObjectWithTag("Bar");
         barbar = bar.GetComponent<ProgressBar.ProgressBarBehaviour>();
@@ -38,7 +38,7 @@ public class TimeLimit_script : MonoBehaviour {
 
         if(SceneManager.GetActiveScene().buildIndex== 0)
         {
-            Destroy(this);
+            Destroy(GameObject.Find("Time"));
             Destroy(GameObject.Find("CountBar"));
         }
 

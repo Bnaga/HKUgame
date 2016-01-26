@@ -8,6 +8,7 @@ public class GameController_script : MonoBehaviour {
     public Text scoreText;
     private int score;
     public int highscore;
+    private GameObject[] bugs;
 
     void Start()
     {
@@ -15,7 +16,11 @@ public class GameController_script : MonoBehaviour {
         score = 0;
         PlayerPrefs.SetInt("HighScore", 0);
         UpdateScore();
+        bugs = GameObject.FindGameObjectsWithTag("Bug");
+        BugPenalty();
     }
+
+   
 
     public void AddScore(int newScoreValue)
     {
@@ -39,6 +44,15 @@ public class GameController_script : MonoBehaviour {
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             GUI.TextArea(new Rect(Screen.width/2 -100, 20, 200, 20), "Score: " + PlayerPrefs.GetInt("HighScore")  );
+        }
+    }
+
+    public void BugPenalty()
+    {
+        foreach (GameObject bug in bugs)
+        {
+            AddScore(-150);
+            Debug.Log("-150");
         }
     }
 
