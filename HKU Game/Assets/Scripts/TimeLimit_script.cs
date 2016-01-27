@@ -20,7 +20,7 @@ public class TimeLimit_script : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        startTime = 300.0F;
+        startTime = 230.0F;
         //startTime = 40.0F;
         timeRemaining = startTime;
         GameObject bar = GameObject.FindGameObjectWithTag("Bar");
@@ -36,7 +36,7 @@ public class TimeLimit_script : MonoBehaviour {
             CountDown();
         }
 
-        if(SceneManager.GetActiveScene().buildIndex== 0 || SceneManager.GetActiveScene().buildIndex >=20 )
+        if(SceneManager.GetActiveScene().buildIndex < 3 || SceneManager.GetActiveScene().buildIndex >=20 )
         {
             Destroy(GameObject.Find("Time"));
             Destroy(GameObject.Find("CountBar"));

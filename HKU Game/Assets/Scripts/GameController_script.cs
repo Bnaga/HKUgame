@@ -41,7 +41,7 @@ public class GameController_script : MonoBehaviour {
 
     void OnGUI()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        if (SceneManager.GetActiveScene().buildIndex ==2 || SceneManager.GetActiveScene().buildIndex == 1)
         {
             GUI.TextArea(new Rect(Screen.width/2 -100, 20, 200, 20), "Score: " + PlayerPrefs.GetInt("HighScore")  );
         }

@@ -27,21 +27,21 @@ public class Door_script : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.gameObject.tag == "Player" && lvl < 19)
+        if (coll.gameObject.tag == "Player" && lvl == 7)
+        {
+            SceneManager.LoadScene(0);
+        }
+        else if (coll.gameObject.tag == "Player" && lvl < 19)
         {
             SceneManager.LoadScene(lvl + 1);
         }
-        else if (coll.gameObject.tag == "Player" && lvl == 19 && controllerScript.score > 500)
+        else if (coll.gameObject.tag == "Player" && lvl == 19 && controllerScript.score > 1000)
         {
             SceneManager.LoadScene(lvl + 1);
         }
-        else if (coll.gameObject.tag == "Player" && lvl == 19 && controllerScript.score < 500)
+        else if (coll.gameObject.tag == "Player" && lvl == 19 && controllerScript.score < 1000)
         {
             SceneManager.LoadScene(lvl + 2);
-        }
-        else if (coll.gameObject.tag == "Player" && lvl == 7)
-        {
-            SceneManager.LoadScene(2);
         }
     }
 }
